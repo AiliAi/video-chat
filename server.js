@@ -6,12 +6,11 @@ const socket = require('socket.io');
 const io = socket(server);
 const path = require('path');
 
-if (process.env.PROD) {
-    app.use(express.static(path.join(__dirname, './client/build')));
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, './client/build/index.html'));
-    });
-}
+app.use(express.static(path.join(__dirname, './client/build')));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './client/build/index.html'));
+});
+
 
 const rooms = {};
 
@@ -43,5 +42,5 @@ io.on("connection", socket => {
 });
 
 
-const port  = process.env.PORT || 8000;
+const port  = 8000;
 app.listen(port, () => console.log('server is running on port 8000'));
